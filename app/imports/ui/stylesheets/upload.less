@@ -1,0 +1,55 @@
+.upload-container {
+  // max-width: 350px;
+
+  .image-content {
+    border: 1px solid #ccc;
+    padding: 5px;
+
+    img {
+      width: 100%;
+
+      &:hover {
+        filter:alpha(Opacity=80);-moz-opacity:0.8;opacity: 0.8;
+      }
+    }
+  }
+
+  .video-content {
+    border: 1px solid #ccc;
+    padding: 5px;
+
+    video {
+      width: 100%;
+
+      &:hover {
+        filter:alpha(Opacity=80);-moz-opacity:0.8;opacity: 0.8;
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .upload-content {
+    width: 100%;
+    height: 160px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    padding-top: 40px;
+
+    &:hover {
+      border: 1px dashed #3C8AC7;
+    }
+
+    i {
+      font-size: 36px;
+      color: #3C8AC7;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}

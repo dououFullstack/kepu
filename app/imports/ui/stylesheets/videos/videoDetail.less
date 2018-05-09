@@ -1,0 +1,126 @@
+#video-detail {
+  min-height: 100%;
+  padding-bottom: 60px;
+
+  .video-js {
+    position: relative !important;
+    width: 100% !important;
+    max-height: 260px !important;
+
+    .vjs-error-display {
+
+      .vjs-modal-dialog-content {
+        top: 10%;
+        font-size: 18px;
+        text-shadow: 1px 1px white, -1px -1px #444;
+      }
+
+      &:before {
+        content: '';
+      }
+    }
+
+    .vjs-big-play-button {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 45px;
+      width: 50px;
+      line-height: 1.5em;
+
+      .vjs-icon-placeholder {
+
+        &:before {
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+
+  .video-control {
+    position: relative;
+
+    .video-container {
+      width: 100%;
+    }
+
+    .video-image {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    .video-cover {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -23px;
+      margin-top: -23px;
+    }
+  }
+
+  .video-info {
+    margin-top: -5px;
+    padding: 14px 12px 20px 12px;
+    background-color: #FFF;
+
+    .video-title {
+      font-size: 18px;
+      line-height: 120%;
+      color: #333;
+    }
+
+    .video-date {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 14px;
+      color: #999;
+    }
+  }
+
+  .desc-title {
+    height: 35px;
+    padding-left: 12px;
+    background-color: #f2f2f2;
+
+    span {
+      padding-left: 6px;
+      font-size: 14px;
+      line-height: 35px;
+      color: #333;
+      border-left: 3px solid #007aff;
+    }
+  }
+
+  .video-desc {
+    padding: 12px 12px 0 12px;
+    background-color: #FFF;
+    height: 100%;
+
+    p {
+      font-size: 14px;
+      color: #999;
+    }
+  }
+
+  .video-submit-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #fafafa;
+    padding: 10px 0;
+    text-align: center;
+
+    .am-button-primary {
+      height: 36px;
+      width: 300px;
+      font-size: 16px;
+      line-height: 36px;
+      color: #FFF;
+      background-color: #007aff;
+      margin: 0 auto;
+    }
+  }
+}

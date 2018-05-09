@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+yarn.lock
+package-lock.json
+docker_run.sh
+../bundle/bundle
+nohup.out
+.deploy
