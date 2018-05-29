@@ -7,11 +7,12 @@ import { compose, merge } from 'react-komposer'
 import { useDeps } from 'react-simple-di'
 import getTrackerLoader from '/imports/api/getTrackerLoader'
 
-import { dateToString2 } from '/imports/lib/helpers'
+import { dateToString } from '/imports/lib/helpers'
 
 const { alert } = Modal
 
 const AnswerItem = ({user, answer, isOwner, isLiked, likedCount, deleteAnswer, like}) => {
+  console.log('answer', answer)
   return (
     <div className='answer-item'>
       <div className='answer-header'>
@@ -38,7 +39,7 @@ const AnswerItem = ({user, answer, isOwner, isLiked, likedCount, deleteAnswer, l
         <p>{answer.content}</p>
       </div>
       <div className='answer-footer'>
-        <span className='answer-date'>{dateToString2(answer.date)}</span>
+        <span className='answer-date'>{dateToString(answer.createdAt)}</span>
       </div>
     </div>
   )

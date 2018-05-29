@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import _ from 'underscore'
 import { compose, merge } from 'react-komposer'
 import { useDeps } from 'react-simple-di'
@@ -73,10 +73,11 @@ const Desc = styled.div`
 `
 
 const Enroll = styled.div`
-  border-top: 1px solid #e5e5e5;
+  // border-top: 1px solid #e5e5e5;
   height: 56px;
-  background-color: #fafafa;
-  margin-top: 25px;
+  background-color: #fff;
+  // background-color: #fafafa;
+  // margin-top: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,7 +94,16 @@ const Button = styled.div`
   height: 36px;
 `
 
+const AllActivitiesLink = styled.div`
+  font-size: 13px;
+  color: #007aff;
+  background-color: #fff;
+  text-align: right;
+  padding: 1px 12px 1px 12px;
+  text-decoration: underline;
+`
 const ActivityDetail = ({activity, showEnrollBtn, enroll, hasExpired}) => {
+  const str = activity.content.replace(/\n/g, '<br />')
   const attachments = activity.attachments.map((attachment, i) => (
     <p key={attachment.uid}>
       <span>{i + 1}. </span>
@@ -129,24 +139,6 @@ const ActivityDetail = ({activity, showEnrollBtn, enroll, hasExpired}) => {
         </Deadline>
       </MainSection>
 
-      <SbuTitle>活动信息</SbuTitle>
-
-      <Desc>
-        {activity.content}
-      </Desc>
-
-      <SbuTitle>注意事项</SbuTitle>
-
-      <Desc>
-        {activity.notice}
-      </Desc>
-
-      <SbuTitle>附件详情</SbuTitle>
-
-      <Desc>
-        {attachments}
-      </Desc>
-
       <Enroll>
         {
           showEnrollBtn
@@ -160,6 +152,33 @@ const ActivityDetail = ({activity, showEnrollBtn, enroll, hasExpired}) => {
           : <Button>您已报名</Button>
         }
       </Enroll>
+
+      <SbuTitle>活动信息</SbuTitle>
+
+      <Desc dangerouslySetInnerHTML={{ __html: str}}>
+
+      </Desc>
+
+      <AllActivitiesLink
+        onClick={() => {
+          browserHistory.push('/activities')
+        }}
+      >
+        查看所有活动>>
+      </AllActivitiesLink>
+
+      <SbuTitle>注意事项</SbuTitle>
+
+      <Desc>
+        {activity.notice}
+      </Desc>
+
+      <SbuTitle>附件详情</SbuTitle>
+
+      <Desc>
+        {attachments}
+      </Desc>
+
     </Warpper>
   )
 }
