@@ -6,12 +6,18 @@ import Modal from 'antd-mobile/lib/modal'
 import { compose, merge } from 'react-komposer'
 import { useDeps } from 'react-simple-di'
 import getTrackerLoader from '/imports/api/getTrackerLoader'
+import styled from 'styled-components'
 
 import Answers from './answers'
 import Loading from '/imports/ui/components/loading'
 import { dateToString } from '/imports/lib/helpers'
 
 const { alert } = Modal
+
+const Desc = styled.div`
+  font-size: 12px;
+  background-color: #FFFFFF;
+`
 
 const QuestionDetail = ({user, question, loading, reply, deleteQuestion}) => {
   if (loading || !question) {
@@ -23,6 +29,8 @@ const QuestionDetail = ({user, question, loading, reply, deleteQuestion}) => {
       <img src={image.url} alt={image.name} />
     </Col>
   )) : ''
+
+  const str = question.content.replace(/\n/g, '<br />')
 
   return (
     <div id='question-detail'>
@@ -39,7 +47,8 @@ const QuestionDetail = ({user, question, loading, reply, deleteQuestion}) => {
         <Row gutter={8} className='question-images'>
           { images }
         </Row>
-        <p className='question-content'>{question.content}</p>
+        <Desc className='question-content' dangerouslySetInnerHTML={{ __html: str}}>
+        </Desc>
       </div>
       <Answers questionId={question._id} />
       <div className='reply-question-btn'>

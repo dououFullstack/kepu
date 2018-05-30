@@ -12,7 +12,8 @@ import { dateToString } from '/imports/lib/helpers'
 const { alert } = Modal
 
 const AnswerItem = ({user, answer, isOwner, isLiked, likedCount, deleteAnswer, like}) => {
-  console.log('answer', answer)
+  // console.log('answer', answer)
+  const str = answer.content.replace(/\n/g, '<br />')
   return (
     <div className='answer-item'>
       <div className='answer-header'>
@@ -36,7 +37,7 @@ const AnswerItem = ({user, answer, isOwner, isLiked, likedCount, deleteAnswer, l
         : ''}
       </div>
       <div className='answer-content'>
-        <p>{answer.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: str}}></p>
       </div>
       <div className='answer-footer'>
         <span className='answer-date'>{dateToString(answer.createdAt)}</span>
