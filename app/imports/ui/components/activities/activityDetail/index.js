@@ -184,12 +184,13 @@ const ActivityDetail = ({activity, showEnrollBtn, enroll, hasExpired}) => {
 }
 
 const reactiveMapper = ({params, context, result}, onData) => {
-  const { Meteor, Collections, LocalState } = context
+  const { Meteor, Collections, LocalState, wx } = context
   const { Activities } = Collections
   LocalState.set('navText', '活动详情')
-  if (Meteor.subscribe('users.current').ready() &&
+  if (Meteor.subscribe('users.current').ready() && result &&
       Meteor.subscribe('activities.activity', params.id).ready()) {
     const activity = Activities.findOne(params.id)
+    // console.log('activity', activity)
     // 判断用户是否已经报名
     const user = Meteor.user()
     let showEnrollBtn = true
@@ -200,6 +201,38 @@ const reactiveMapper = ({params, context, result}, onData) => {
     const now = new Date()
     const activityEndDate = new Date(activity.endTime.setHours(23, 59, 59, 0))
     const hasExpired = now.getTime() > activityEndDate.getTime()
+
+    const shareConfig = {
+      share: {
+        imgUrl: activity.defaultImage.url,
+        title: `${activity.title} - 互动科普`,
+        desc: activity.content.substr(0, 30),
+        link: window.location.href,
+        success () {
+          // 分享成功后的回调函数
+        },
+        cancel () {
+          // 用户取消分享后执行的回调函数
+        }
+      }
+    }
+    wx.config({
+      debug: false,
+      appId: result.appId,
+      timestamp: result.timestamp,
+      nonceStr: result.nonceStr,
+      signature: result.signature,
+      jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ'
+      ]
+    })
+    wx.ready(() => {
+      wx.onMenuShareAppMessage(shareConfig.share)
+      wx.onMenuShareTimeline(shareConfig.share)
+      wx.onMenuShareQQ(shareConfig.share)
+    })
 
     onData(null, { activity, showEnrollBtn, hasExpired })
   }
