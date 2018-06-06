@@ -55,7 +55,7 @@ const VideoDetail = ({
       </div>
       <div className='video-info'>
         <h2 className='video-title'>{video.title}</h2>
-        <span className='video-date'>{dateToString(video.date)}</span>
+        <span className='video-date'>{dateToString(video.createdAt)}</span>
       </div>
       <div className='desc-title'>
         <span>视频简介</span>

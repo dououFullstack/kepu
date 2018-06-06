@@ -63,17 +63,61 @@ const QuestionDetail = ({user, question, loading, reply, deleteQuestion}) => {
   )
 }
 
-const reactiveMapper = ({params, context}, onData) => {
+const reactiveMapper = ({params, context, result}, onData) => {
   const { Meteor, Collections, LocalState } = context
   const { Questions } = Collections
   const user = Meteor.user()
   LocalState.set('navText', '问答详情')
-  if (Meteor.subscribe('questions.question', params.questionId).ready()) {
+  if (Meteor.subscribe('users.current').ready() && result &&
+    Meteor.subscribe('questions.question', params.questionId).ready()) {
     const question = Questions.findOne(params.questionId)
+    const imgUrl = question.attachments.length == 0 ? 'https://cdn.douhs.com/default.jpg'   : question.attachments[0].url
+    // console.log('imgUrl', imgUrl)
+
+    const shareConfig = {
+      share: {
+        imgUrl,
+        title: `${question.title} - 互动科普`,
+        desc: question.content.substr(0, 30),
+        link: window.location.href,
+        success () {
+          // 分享成功后的回调函数
+        },
+        cancel () {
+          // 用户取消分享后执行的回调函数
+        }
+      }
+    }
+    wx.config({
+      debug: false,
+      appId: result.appId,
+      timestamp: result.timestamp,
+      nonceStr: result.nonceStr,
+      signature: result.signature,
+      jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ'
+      ]
+    })
+    wx.ready(() => {
+      wx.onMenuShareAppMessage(shareConfig.share)
+      wx.onMenuShareTimeline(shareConfig.share)
+      wx.onMenuShareQQ(shareConfig.share)
+    })
+
     onData(null, { user: user || {}, question, loading: false })
   } else {
     onData(null, { user: {}, question: {}, loading: true })
   }
+}
+
+const wechat = ({ context }, onData) => {
+  const { Meteor } = context
+  Meteor.call('wechat.signature', window.location.href, (error, result) => {
+    if (!error) onData(null, { result })
+  })
+  onData(null, {})
 }
 
 const depsToProps = (context, actions) => ({
@@ -84,5 +128,6 @@ const depsToProps = (context, actions) => ({
 
 export default merge(
   compose(getTrackerLoader(reactiveMapper)),
+  compose(wechat, { propsToWatch: [] }),
   useDeps(depsToProps)
 )(QuestionDetail)
