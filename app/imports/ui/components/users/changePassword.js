@@ -22,10 +22,10 @@ const ChangePassword = ({
       <List className='user-change-pwd-inputs'>
         <InputItem
           {...getFieldProps('telephone', {
-            rules: [{ required: false, message: '请输入手机号码' }]
+            rules: [{ required: true, message: '请输入手机号码' }]
           })}
           placeholder={telephone}
-          disabled
+          disabled={false}
         >
           <div className='input-telephone' />
         </InputItem>

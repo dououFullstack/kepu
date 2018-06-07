@@ -103,8 +103,11 @@ export default {
         const regxMobile = /^0?1[3|4|5|7|8][0-9]\d{8}$/
         let telephone = ''
         if (isChangePassword) {
-          const user = Meteor.user()
-          telephone = user.username
+          if (Meteor.user()) {
+            telephone = user.username
+          } else {
+            telephone = values.telephone
+          }
         } else {
           telephone = values.telephone
         }

@@ -4,7 +4,7 @@ mv app.tar.gz bundle.tar.gz
 # scp ./app.tar.gz root@124.17.28.29:/root/code/
 # rm -f app.tar.gz
 
-docker build -t="hub.c.163.com/dou3311/project:kepu529" .
-docker push hub.c.163.com/dou3311/project:kepu529
+docker build -t="hub.c.163.com/dou3311/project:kepu607" .
+docker push hub.c.163.com/dou3311/project:kepu607
 
 # rm bundle.tar.gz

@@ -4,9 +4,12 @@ import { Link } from 'react-router'
 
 const videoItem = ({ video }) => {
   return (
-    <Link onClick={(e) => {
-      window.location.href = `${window.location.origin}/videos/${video._id}`
-    }}>
+    <Link
+      // onClick={(e) => {
+      //   window.location.href = `${window.location.origin}/videos/${video._id}`
+      // }
+      to={`/videos/${video._id}`
+    }>
       <div className='video-item'>
         {/* <video src={video.defaultVideo.url} controls /> */}
         <div className='video-back'>
