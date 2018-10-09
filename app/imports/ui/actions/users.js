@@ -34,7 +34,7 @@ export default {
     form.validateFields((err, values) => {
       if (!err) {
         const { code, password } = values
-        const telephone = Meteor.user().username
+        const telephone = Meteor.user() ? Meteor.user().username : values.telephone
 
         // 验证短信验证码
         Meteor.call('users.changePassword', telephone, code, password, (err, res) => {
